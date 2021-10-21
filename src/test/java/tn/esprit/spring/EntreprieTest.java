@@ -53,7 +53,7 @@ public class EntreprieTest {
 
 		entreService.deleteDepartementById(idDepartement);	
 
-	
+	}
 	@Test
 	public void ajouterEntrepriseTest  ()
 	{
