@@ -52,7 +52,7 @@ public class EntreprieTest {
 		Assert.assertTrue(departementRerpository.findById(idDepartement).get().getName().equals("production"));
 
 		entreService.deleteDepartementById(idDepartement);	
-
+	}
 	
 	@Test
 	public void ajouterEntrepriseTest  ()
