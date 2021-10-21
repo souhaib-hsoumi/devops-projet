@@ -63,6 +63,7 @@ public class EntreprieTest {
 		Assert.assertTrue(entreRep.findById(entreId).get().getName().equals("entrepriseTest1"));
 	
 		entreService.deleteEntrepriseById(entreId);	
+		
 	}
 	
 	
