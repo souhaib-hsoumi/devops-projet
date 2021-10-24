@@ -45,6 +45,7 @@ public class EntreprieTest {
 		Departement depTest = new Departement(MSG);
 		
 		int idDepartement=entreService.ajouterDepartement(depTest);
+<<<<<<< HEAD
 		Departement dep =departementRerpository.findById(idDepartement).orElse(null);
 		
 		if(idDepartement!=0 && dep!=null && dep.getName().equals(MSG)) 
@@ -52,6 +53,14 @@ public class EntreprieTest {
 					entreService.deleteDepartementById(idDepartement);	
 
 	}
+=======
+		Assert.assertTrue(departementRerpository.findById(idDepartement).get()!= null);
+		Assert.assertTrue(departementRerpository.findById(idDepartement).get().getName().equals("production"));
+
+		entreService.deleteDepartementById(idDepartement);	
+	}
+	
+>>>>>>> 0550d957f34abaa7a103be8ff171a3386cb86be7
 	@Test
 	public void ajouterEntrepriseTest  ()
 	{
@@ -61,6 +70,7 @@ public class EntreprieTest {
 		Assert.assertTrue(entreRep.findById(entreId).get().getName().equals(MSG));
 	
 		entreService.deleteEntrepriseById(entreId);	
+		
 	}
 	
 	
