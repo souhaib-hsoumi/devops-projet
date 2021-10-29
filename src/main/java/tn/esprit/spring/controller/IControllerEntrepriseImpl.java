@@ -32,9 +32,9 @@ public class IControllerEntrepriseImpl{
 	{
 		ientrepriseservice.deleteEntrepriseById(entrepriseId);
 	}
-	public Entreprise getEntrepriseById(int entrepriseId) {
+	public Entreprise getEntrepriseById(int entreId) {
 
-		return ientrepriseservice.getEntrepriseById(1);
+		return ientrepriseservice.getEntrepriseById(entreId);
 	}
 	
 	public int ajouterDepartement(Departement dep) {
