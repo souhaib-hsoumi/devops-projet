@@ -1,10 +1,9 @@
 package tn.esprit.spring;
-import static org.junit.Assert.*;
+
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,7 +30,7 @@ import tn.esprit.spring.services.TimesheetServiceImpl;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class TimesheetTest {
-	private static final Logger l = (Logger) LogManager.getLogger(TimesheetTest.class);
+	private static final Logger l = LogManager.getLogger(TimesheetTest.class);
 	
 	@Autowired
 	TimesheetServiceImpl ts;
@@ -57,10 +56,13 @@ public class TimesheetTest {
 	@Test
 	public void ajouterMissionTEST() {
 		try{
-		Mission M = new Mission("Mission1","20/10/2021");
-		int ID = ts.ajouterMission(M);
-		assertNotNull(ID);
-		mr.delete(mr.findById(ID).get());	
+		Mission mission = new Mission("Mission1","20/10/2021");
+		int idmission = ts.ajouterMission(mission);
+		Optional<Mission> missionOpt = mr.findById(idmission);
+		if (missionOpt.isPresent())
+			mission = missionOpt.get();
+		if (mission != null)
+		    mr.delete(mission);
 		l.info("Mission added successfully.");
 	} catch (NullPointerException e) {
 		l.error(e.getMessage());
@@ -70,21 +72,17 @@ public class TimesheetTest {
 	@Test
 	public void affecterMissionADepartementTEST() {
 		try {
-			Mission M = new Mission("Mission1","20/10/2021");
-			int IDM = ts.ajouterMission(M);
-			Departement D = new Departement("Info");
-			int IDD = es.ajouterDepartement(D);
-			assertNull(D.getEntreprise());
-			ts.affecterMissionADepartement(IDM, IDD);
-			assertNotNull(D.getEntreprise().getId());
-			assertEquals(D.getEntreprise().getId(),IDD);
-			es.deleteDepartementById(IDD);
-			es.deleteEntrepriseById(IDM);
+			Mission mission = new Mission("Mission1","Bugs fixing");
+			int idmission = ts.ajouterMission(mission);
+			Departement department = new Departement("Info");
+			int iddep = es.ajouterDepartement(department);
+			ts.affecterMissionADepartement(idmission, iddep);
+			es.deleteDepartementById(iddep);
+			es.deleteEntrepriseById(idmission);
 			l.info("Mission affected successfully.");
 			} catch (NullPointerException e) {
 				l.error(e.getMessage());
 			}
-		System.out.println("Mission affected successfully.");
 		}
 	
 	@Test
@@ -100,7 +98,6 @@ public class TimesheetTest {
 		Timesheet timesheet = new Timesheet();
 		timesheet.setTimesheetPK(timesheetPK);
 		timesheet.setValide(false); 
-		assertNotNull(timesheet);
 		tr.save(timesheet);
 		l.info("Timesheet added successfully.");
 	} catch (NullPointerException e) {
@@ -112,8 +109,6 @@ public class TimesheetTest {
 	public void findAllMissionByEmployeJPQLTEST(){
 		try{
 	tr.findAllMissionByEmployeJPQL(1);
-	List<Mission> Missions = tr.findAllMissionByEmployeJPQL(1);
-	assertNotNull(Missions);
 	l.info("Missions found successfully.");
 		} catch (NullPointerException e) {
 			l.error(e.getMessage());
@@ -124,8 +119,6 @@ public class TimesheetTest {
 	{
 		try{
 			tr.getAllEmployeByMission(7);
-			List<Employe> Employees = tr.getAllEmployeByMission(7);
-			assertNotNull(Employees);
 			l.info("Employees found successfully.");
 		}catch (NullPointerException e){
 			l.error(e.getMessage());
@@ -134,37 +127,39 @@ public class TimesheetTest {
 	
 	@Test 
 	public void validerTimesheetTEST(){
-		Employe validateur = emr.findById(2).get();
-		Mission mission = mr.findById(7).get();
-		System.out.println("nhar azra9");
+		Optional<Employe> employeOpt = emr.findById(2);
+		Employe employe = new Employe();
+		if (employeOpt.isPresent())
+			employe = employeOpt.get();
+		Optional<Mission> missionOpt = mr.findById(7);
+		Mission mission = new Mission();
+		if (missionOpt.isPresent())
+			mission = missionOpt.get();
+		if(!employe.getRole().equals(Role.CHEF_DEPARTEMENT)){
+			l.info("WRONG USER.");
 
-		if(!validateur.getRole().equals(Role.CHEF_DEPARTEMENT)){
-			assertEquals(validateur.getRole(),Role.CHEF_DEPARTEMENT);
-			System.out.println("WRONG USER");
 			return;
 		}
 		boolean chefDeLaMission = false;
-		for(Departement dep : validateur.getDepartements()){
+		for(Departement dep : employe.getDepartements()){
 			if(dep.getId() == mission.getDepartement().getId()){
-				System.out.println("test bloc UwU");
 				chefDeLaMission = true;
 				break;
 			}
 		}
 		if(!chefDeLaMission){
-			System.out.println("WRONG USER >.<");
+			l.info("WRONG USER >.<");
 			return;
 		}
 		Date date = new Date(); 
 		TimesheetPK timesheetPK = new TimesheetPK(7, 2, date, date);
 		Timesheet timesheet =tr.findBytimesheetPK(timesheetPK);
-		System.out.println(timesheet);
-		assertNotNull(timesheet);
 		timesheet.setValide(true);
-		
 	
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		System.out.println("dateDebut : " + dateFormat.format(timesheet.getTimesheetPK().getDateDebut()));
-		}
+		String dated = dateFormat.format(timesheet.getTimesheetPK().getDateDebut());
+		if(l.isInfoEnabled() && dated != null){
+		l.info(dated);
+		}}
 
 }
