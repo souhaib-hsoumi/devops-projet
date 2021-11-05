@@ -159,6 +159,7 @@ public class EntreprieTest {
 	    		entreService.deleteDepartementById(depId);
 	    		entreService.deleteDepartementById(depId2);
 	    		entreService.deleteEntrepriseById(entreId);
+				
 	        }
 		
 		
