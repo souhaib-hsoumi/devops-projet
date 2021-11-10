@@ -10,12 +10,12 @@ pipeline {
 
       stages {
 
-    stage ('GIT') {
-       steps {
-         echo "Getting Project from Git"; 
-        git branch:"aymenbaghouli", url : "https://github.com/aymenbaghouli/projetdevops.git"; 
-     }
-}
+  //  stage ('GIT') {
+  //     steps {
+    //     echo "Getting Project from Git"; 
+     //   git branch:"aymenbaghouli", url : "https://github.com/aymenbaghouli/projetdevops.git"; 
+    // }
+//}
 
         stage("Verification de la verison du Maven") {
             steps {
