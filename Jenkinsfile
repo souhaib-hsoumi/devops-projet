@@ -1,11 +1,7 @@
 pipeline {
 
       agent any
-      tools{
-      	jdk "java-7u80"
-      }
-
-
+      
 
  //   triggers {
 
@@ -41,7 +37,7 @@ pipeline {
         stage("Build") {
             steps {
 
-                bat "mvn package -DskipTests=true"
+                bat "mvn package install"
 
                   }
         }
