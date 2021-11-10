@@ -2,9 +2,7 @@ pipeline {
 
       agent any
 
-      tools {
-      	jdk "java8"
-      }
+     
 
  //   triggers {
 
