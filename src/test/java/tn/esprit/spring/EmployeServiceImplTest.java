@@ -46,7 +46,7 @@ public class EmployeServiceImplTest {
 	public void B_testRetrieveAllEmploye() {
 		List<Employe> listEmployes = emprep.retrieveAllEmployes(); 
 		// if there are 7 users in DB : 
-		Assert.assertEquals(25, listEmployes.size());
+		Assert.assertEquals(17, listEmployes.size());
 	}
 	
 	
@@ -60,16 +60,16 @@ public class EmployeServiceImplTest {
 	
 	@Test
 	public void AB_testRetrieveEmploye() {
-		Employe employeRetrieved = emprep.retrieveEmploye(9); 
-		Assert.assertEquals(9, employeRetrieved.getId());
+		Employe employeRetrieved = emprep.retrieveEmploye(42); 
+		Assert.assertEquals(42, employeRetrieved.getId());
 		l.info("retrieve Employe : ", emprep);
 	}
 	
 	
 	@Test
 	public void D_testDeleteEmploye() {
-		emprep.deleteEmploye(38);
-		Assert.assertNull(emprep.retrieveEmploye(38));
+		emprep.deleteEmploye(41);
+		Assert.assertNull(emprep.retrieveEmploye(41));
 		l.info(" employe supprimé avec succès");
 	} 
 	
