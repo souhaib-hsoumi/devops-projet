@@ -33,13 +33,7 @@ pipeline {
                   }
         }
 
-        stage("Build") {
-            steps {
-
-              //  bat "mvn package -DskipTests=true"
-
-                  }
-        }
+    
 
         stage("Lancement des tests unitaires ") {
             steps {
