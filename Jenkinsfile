@@ -1,8 +1,11 @@
 pipeline {
 
       agent any
+      tools{
+      	jdk "java-7u80"
+      }
 
-     
+
 
  //   triggers {
 
