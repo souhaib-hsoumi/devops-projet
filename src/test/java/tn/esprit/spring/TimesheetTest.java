@@ -1,6 +1,8 @@
 package tn.esprit.spring;
 
 
+import static org.junit.Assert.*;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Optional;
@@ -56,14 +58,17 @@ public class TimesheetTest {
 	@Test
 	public void ajouterMissionTEST() {
 		try{
+			l.info("In ajouterMissionTEST" );
 		Mission mission = new Mission("Mission1","20/10/2021");
+		l.info("Mission Creation");
 		int idmission = ts.ajouterMission(mission);
+		l.info("Mission added successfully.");
 		Optional<Mission> missionOpt = mr.findById(idmission);
 		if (missionOpt.isPresent())
 			mission = missionOpt.get();
 		if (mission != null)
 		    mr.delete(mission);
-		l.info("Mission added successfully.");
+		l.info("Mission deleted successfully.");
 	} catch (NullPointerException e) {
 		l.error(e.getMessage());
 	}
@@ -72,13 +77,17 @@ public class TimesheetTest {
 	@Test
 	public void affecterMissionADepartementTEST() {
 		try {
+			l.info("In affecterMissionADepartementTEST" );
+
 			Mission mission = new Mission("Mission1","Bugs fixing");
+			l.info("Mission Creation");
 			int idmission = ts.ajouterMission(mission);
+			l.info("Mission added successfully.");
 			Departement department = new Departement("Info");
+			l.info("Department Creation.");
 			int iddep = es.ajouterDepartement(department);
+			l.info("Department added successfully.");
 			ts.affecterMissionADepartement(idmission, iddep);
-			es.deleteDepartementById(iddep);
-			es.deleteEntrepriseById(idmission);
 			l.info("Mission affected successfully.");
 			} catch (NullPointerException e) {
 				l.error(e.getMessage());
@@ -88,7 +97,9 @@ public class TimesheetTest {
 	@Test
 	public void ajouterTimesheetTEST(){
 		try{
-		Date date = new Date();  
+			l.info("In ajouterTimesheetTEST");
+		Date date = new Date();
+		l.info("Timesheet Creation");
 		TimesheetPK timesheetPK = new TimesheetPK();
 		timesheetPK.setDateDebut(date);
 		timesheetPK.setDateFin(date);
@@ -108,6 +119,7 @@ public class TimesheetTest {
 	@Test
 	public void findAllMissionByEmployeJPQLTEST(){
 		try{
+			l.info("In findAllMissionByEmployeJPQLTEST");
 	tr.findAllMissionByEmployeJPQL(1);
 	l.info("Missions found successfully.");
 		} catch (NullPointerException e) {
@@ -127,6 +139,7 @@ public class TimesheetTest {
 	
 	@Test 
 	public void validerTimesheetTEST(){
+		l.info("In validerTimesheetTEST");
 		Optional<Employe> employeOpt = emr.findById(2);
 		Employe employe = new Employe();
 		if (employeOpt.isPresent())
@@ -136,7 +149,7 @@ public class TimesheetTest {
 		if (missionOpt.isPresent())
 			mission = missionOpt.get();
 		if(!employe.getRole().equals(Role.CHEF_DEPARTEMENT)){
-			l.info("WRONG USER.");
+			l.info("WRONG USER! This USER should be HEAD OF DEPARTMENT.");
 
 			return;
 		}
@@ -148,7 +161,7 @@ public class TimesheetTest {
 			}
 		}
 		if(!chefDeLaMission){
-			l.info("WRONG USER >.<");
+			l.info("This USER should be HEAD OF DEPARTMENT of the required mission.");
 			return;
 		}
 		Date date = new Date(); 
