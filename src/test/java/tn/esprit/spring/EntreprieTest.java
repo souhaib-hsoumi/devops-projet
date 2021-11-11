@@ -24,7 +24,6 @@ import tn.esprit.spring.services.IEntrepriseService;
 public class EntreprieTest {
 	
 	
-	
 	private static final String MSG = "entrepriseTest1";
 	@Autowired
 	IEntrepriseService entreService;
@@ -159,6 +158,7 @@ public class EntreprieTest {
 	    		entreService.deleteDepartementById(depId);
 	    		entreService.deleteDepartementById(depId2);
 	    		entreService.deleteEntrepriseById(entreId);
+				
 	        }
 		
 		
