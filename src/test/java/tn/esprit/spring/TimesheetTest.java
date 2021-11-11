@@ -161,7 +161,7 @@ public class TimesheetTest {
 			}
 		}
 		if(!chefDeLaMission){
-			l.info("This USER should be HEAD OF DEPARTMENT of the required mission.");
+			l.info("This USER should be HEAD OF DEPARTMENT of the required mission...");
 			return;
 		}
 		Date date = new Date(); 
