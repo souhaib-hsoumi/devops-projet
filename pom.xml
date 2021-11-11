@@ -80,6 +80,8 @@
     		<configuration>
                 <testFailureIgnore>true</testFailureIgnore>
                 <shutdown>kill</shutdown> <!-- Use it if required-->
+                <fork>true</fork>
+					<executable>C:\Program Files\Java\jdk1.8.0_60\bin\javac</executable>
                 </configuration>
 </plugin>
 		</plugins>
