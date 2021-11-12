@@ -119,10 +119,6 @@ public class EntreprieTest {
 			entreService.deleteEntrepriseById(entreId);}
 		
 		
-
-
-	
-	
 	@Test
 	public void suprimerDepartementTest() {
 		Departement depTest = new Departement("production");
