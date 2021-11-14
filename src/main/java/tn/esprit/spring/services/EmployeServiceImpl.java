@@ -37,23 +37,36 @@ public class EmployeServiceImpl implements IEmployeService {
 	TimesheetRepository timesheetRepository;
 
 	public int ajouterEmploye(Employe employe) {
-		employeRepository.save(employe);
+		l.info("START ajouterEmploye ");
+		try{
+			l.debug(employe.getId());
+
+			l.trace("Debut d'ajout du employe: " + employe.getNom());
+			employeRepository.save(employe);
+			l.trace("Fin Ajout Employe");
+
+			l.debug("L'employe: " + employe.getNom() + " de l'id: " + employe.getId() + " a été ajoutée avec succé");
+		} catch(Exception e) {
+			l.error("Error in ajouterEmploye:"  + e);
+		}
+		l.info("END ajouterEmploye ");
+
 		return employe.getId();
 	}
 	
 	@Override
 	public List<Employe> retrieveAllEmployes() {
+		l.info("START retrieveAllEmployes ");
 		List<Employe> employes = null; 
 		try {
-	
-			l.info("In retrieveAllEmployes() : ");
+			l.trace("Debut de récupérer tous les employes: ");
 			employes = (List<Employe>) employeRepository.findAll();  
 			for (Employe employes1 : employes) {
 				l.debug("user +++ : " , employes1);
 			} 
-			l.info("Out of retrieveAllEmpoyes() : ");
+			l.trace("fin de  récupérer tous les employes.");
 		}catch (Exception e) {
-			l.error(String.format("Error in retrieveAllEmployes() : " , e));
+			l.error("Erreur à retrieveAllEmployes() : " , e);
 		}
 
 		return employes;
@@ -61,26 +74,60 @@ public class EmployeServiceImpl implements IEmployeService {
 	
 	@Override
 	public Employe addEmploye(Employe e) {
-		return employeRepository.save(e); 
+		l.info("START addEmploye");
+		try{
+			l.trace("Début ajouter employe : ");
+			employeRepository.save(e);
+			l.debug("Employe à ajouter : ", e);
+			l.trace("Fin ajouter employe.");
+		}catch(Exception err){
+			l.error("Erreur à addEmploye() : ", err);
+		}
+		return  e;
 	}
 	
 	
 	@Override
 	public void deleteEmploye(int id) {
-		employeRepository.deleteById(id);
 		
+		l.info("START deleteEmploye");
+		try{
+			l.trace("Début effacer employe : ");
+			employeRepository.deleteById(id);
+			l.debug("Employe à effacer: ", employeRepository.findById(id));
+			l.trace("Fin effacer employe.");
+		}catch(Exception err){
+			l.error("Erreur à deleteEmploye() : ", err);
+		}
+		l.info("END deleteEmploye");
 	}
 
 	@Override
 	public Employe updateEmploye(Employe e) {
-		return employeRepository.save(e); 
+		l.info("START updateEmploye");
+		try{
+			l.trace("Début modifer employe : ");
+			employeRepository.save(e);
+			l.debug("Employe à modifier : ", e);
+			l.trace("Fin modifier employe.");
+		}catch(Exception err){
+			l.error("Erreur à updateEmploye() : ", err);
+		}
+		return  e;
 	}
 	@Override
 	public Employe retrieveEmploye(int id) {
-		l.info("in  retrieveEmploye id = " , id);
-		Employe e =  employeRepository.findById(id).orElse(null); 
-		l.info("Employe returned : " , e);
-		return e; 
+		l.info("START retrieveEmploye");
+		try{
+			l.trace("Début de récupérer l'employe avec l'id = " , id);
+			Employe e =  employeRepository.findById(id).orElse(null);
+			l.debug("Employe récupéré : ", e);
+			l.trace("Fin récupérer l'emloye : " , e);
+			return e; 
+		}catch(Exception err){
+			l.error("Erreur à retrieveEmploye() : ", err);
+		}
+		return null;
 	}
 
 	public void mettreAjourEmailByEmployeId(String email, int employeId) {
