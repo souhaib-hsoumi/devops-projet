@@ -74,16 +74,9 @@
 	<build>
 		<plugins>
 			<plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-surefire-plugin</artifactId>
-    <version>2.19.1</version>
-    		<configuration>
-                <testFailureIgnore>true</testFailureIgnore>
-                <shutdown>kill</shutdown> <!-- Use it if required-->
-                <fork>true</fork>
-					<executable>C:\Program Files\Java\jdk1.8.0_60\bin\javac.exe</executable>
-                </configuration>
-</plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
 		</plugins>
 	</build>
 

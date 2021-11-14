@@ -17,14 +17,12 @@ import tn.esprit.spring.entities.Entreprise;
 import tn.esprit.spring.repository.DepartementRepository;
 import tn.esprit.spring.repository.EntrepriseRepository;
 import tn.esprit.spring.services.IEntrepriseService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class EntreprieTest {
 	
-	private static final Logger L = LogManager.getLogger(EntreprieTest.class);
 	
 	private static final String MSG = "entrepriseTest1";
 	@Autowired
@@ -50,7 +48,7 @@ public class EntreprieTest {
 		Departement dep =departementRerpository.findById(idDepartement).orElse(null);
 		
 		if(idDepartement!=0 && dep!=null && dep.getName().equals(MSG)) 
-			L.info("Entreprise added successfully!");
+				
 					entreService.deleteDepartementById(idDepartement);	
 
 	}
@@ -67,7 +65,6 @@ public class EntreprieTest {
 	{
 		Entreprise entrepTest = new Entreprise (MSG,"raisonTest1");
 		int entreId = entreService.ajouterEntreprise(entrepTest);
-		L.info("Departement added successfully to Entreprise ");
 		if(entreId!=0)
 		{
 		Entreprise ent =entreRep.findById(entreId).orElse(null);
@@ -87,7 +84,6 @@ public class EntreprieTest {
 		int depId=entreService.ajouterDepartement(department);
 		
 		entreService.affecterDepartementAEntreprise(depId, entreId);
-		L.info("Departement  affected successfully!");
         List<String> result = entreService.getAllDepartementsNamesByEntreprise(entreId);
         if(result.contains("departmenTest1") && result.size()==1) {
     		entreService.deleteDepartementById(depId);
@@ -107,7 +103,6 @@ public class EntreprieTest {
 			Entreprise ent =entreRep.findById(idEntreprise).orElse(null);
 			if(ent!=null)
 				entreService.deleteEntrepriseById(idEntreprise);
-			L.info("Entreprise Deleted successfully ");
 
 		}
 	}
@@ -118,16 +113,12 @@ public class EntreprieTest {
 		Entreprise entreprise4 = new Entreprise ("entrepriseTest4","raisonTest4");
 		int entreId = entreService.ajouterEntreprise(entreprise4);
 		entreService.getEntrepriseById(entreId);
-		L.info("Entreprise  geted successfully!");
+	
 		
 		if(entreprise !=null ) 		
 			entreService.deleteEntrepriseById(entreId);}
 		
 		
-
-
-	
-	
 	@Test
 	public void suprimerDepartementTest() {
 		Departement depTest = new Departement("production");
@@ -137,9 +128,6 @@ public class EntreprieTest {
 			Departement ent =departementRerpository.findById(idDepartement).orElse(null);
 			if(ent!=null)
 				entreService.deleteEntrepriseById(idDepartement);
-			L.info("Departement Deleted successfully ");
-
-			
 			
 		}
 	}
@@ -161,8 +149,7 @@ public class EntreprieTest {
 		entreService.affecterDepartementAEntreprise(depId2, entreId);
 		
 		List<String> result = entreService.getAllDepartementsNamesByEntreprise(entreId);
-		L.info("All department successfully ");
-
+		
 		 if(result.contains("department Test 1") && result.size()==2) {
 	    		entreService.deleteDepartementById(depId);
 	    		entreService.deleteDepartementById(depId2);
