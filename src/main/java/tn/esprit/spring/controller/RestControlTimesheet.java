@@ -3,6 +3,8 @@ package tn.esprit.spring.controller;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import tn.esprit.spring.TimesheetTest;
 import tn.esprit.spring.dto.MissionDTO;
 import tn.esprit.spring.entities.Employe;
 import tn.esprit.spring.entities.Mission;
@@ -22,6 +25,8 @@ import tn.esprit.spring.services.ITimesheetService;
 
 @RestController
 public class RestControlTimesheet {
+	private static final Logger l = LogManager.getLogger(RestControlTimesheet.class);
+	
 
 	@Autowired
 	IEmployeService iemployeservice;
@@ -36,7 +41,9 @@ public class RestControlTimesheet {
 	@PostMapping("/ajouterMission")
 	@ResponseBody
 	public int ajouterMission(@RequestBody MissionDTO mission) {
+		l.info("In affecterMissionADepartement");
 		Mission  ent =mapper.map(mission, Mission.class);
+		l.trace("Message TRACE: In affecterMissionADepartement function");
 		itimesheetservice.ajouterMission(ent);
 		return ent.getId();
 	}

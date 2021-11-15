@@ -148,6 +148,7 @@ public class TimesheetTest {
 			mission = missionOpt.get();
 		if(!employe.getRole().equals(Role.CHEF_DEPARTEMENT)){
 			l.info("WRONG USER! This USER should be HEAD OF DEPARTMENT.");
+			l.error("WRONG USER! This USER should be HEAD OF DEPARTMENT");
 
 			return;
 		}
@@ -160,6 +161,7 @@ public class TimesheetTest {
 		}
 		if(!chefDeLaMission){
 			l.info("This USER should be HEAD OF DEPARTMENT of the required mission...");
+			l.error("WRONG USER! This USER should be HEAD OF DEPARTMENT");
 			return;
 		}
 		Date date = new Date(); 
@@ -170,7 +172,7 @@ public class TimesheetTest {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		String dated = dateFormat.format(timesheet.getTimesheetPK().getDateDebut());
 		if(l.isInfoEnabled() && dated != null){
-		l.info(dated);
+		l.info(" DateOfCreation: " +dated);
 		}}
 
 }
