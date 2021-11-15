@@ -103,7 +103,6 @@ public class TimesheetTest {
 		timesheetPK.setDateFin(date);
 		timesheetPK.setIdEmploye(1);
 		timesheetPK.setIdMission(7);
-		
 		Timesheet timesheet = new Timesheet();
 		timesheet.setTimesheetPK(timesheetPK);
 		timesheet.setValide(false); 
@@ -172,7 +171,7 @@ public class TimesheetTest {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		String dated = dateFormat.format(timesheet.getTimesheetPK().getDateDebut());
 		if(l.isInfoEnabled() && dated != null){
-		l.info(" DateOfCreation: " +dated);
+		l.info(dated);
 		}}
 
 }
