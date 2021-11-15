@@ -26,14 +26,16 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 	DepartementRepository deptRepoistory;
 	
 	public int ajouterEntreprise(Entreprise entreprise) {
-		l.trace("this is a trace message");
-		l.error("this is a error message"); 
+		l.trace("this is  trace message");
+		l.error("this is  error message"); 
 	
 		entrepriseRepoistory.save(entreprise);
 		return entreprise.getId();
 	}
 
 	public int ajouterDepartement(Departement dep) {
+		l.trace("this is    trace message");
+		l.error("this is    error message"); 
 		deptRepoistory.save(dep);
 		return dep.getId();
 	}
@@ -54,6 +56,8 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 			departement = departementOpt.get();
 		if (departement != null){		
 		    departement.setEntreprise(entreprise);
+		    l.trace("this is trace message");
+			l.error("this is error message"); 
 	        deptRepoistory.save(departement);
 	        }
 		
@@ -68,6 +72,8 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 		List<String> depNames = new ArrayList<>();
 		if (entreprise != null)
 		    for(Departement dep : entreprise.getDepartements()){
+		    	l.trace("this is    a   trace message");
+				l.error("this is a      error message"); 
 		    	depNames.add(dep.getName());
 		    }
 		
@@ -81,7 +87,10 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 		if (entrepriseOpt.isPresent())
 			entreprise = entrepriseOpt.get();
 		if (entreprise != null)
+		
 		    entrepriseRepoistory.delete(entreprise);	
+		l.trace("this is   a    trace message");
+		l.error("this is     a    error message"); 
 	}
 	@Transactional
 	public void deleteDepartementById(int depId) {
@@ -90,7 +99,10 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 		if (departementOpt.isPresent())
 			departement = departementOpt.get();
 		if (departement != null)
+	
 			deptRepoistory.delete(departement);		
+		l.trace("this is a trace message");
+		l.error("this is a error message"); 
 	}
 
 
@@ -98,7 +110,10 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 		Optional<Entreprise> entrepriseOpt = entrepriseRepoistory.findById(entrepriseId);
 		Entreprise entreprise = null;
 		if (entrepriseOpt.isPresent())
+			
 			entreprise = entrepriseOpt.get();
+		l.trace("this is a trace message");
+		l.error("this is a error message"); 
 		return entreprise;
 	}
 
