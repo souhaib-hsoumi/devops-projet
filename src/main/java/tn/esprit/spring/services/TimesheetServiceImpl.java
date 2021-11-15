@@ -41,6 +41,8 @@ public class TimesheetServiceImpl implements ITimesheetService {
 	}
     
 	public void affecterMissionADepartement(int missionId, int depId) {
+		l.info("In affecterMissionADepartement");
+		l.trace("Message TRACE: In affecterMissionADepartement function");
 		Optional<Departement> departementOpt = deptRepoistory.findById(depId);
 		Departement departement = null;
 		if (departementOpt.isPresent())
@@ -51,12 +53,19 @@ public class TimesheetServiceImpl implements ITimesheetService {
 			mission = missionOpt.get();
 		if (mission != null){		
 		    mission.setDepartement(departement);
+		    l.trace("Message TRACE: affecterMissionADepartement saved");
 		    missionRepository.save(mission);
+			l.trace("Message TRACE: affecterMissionADepartement function ended");
+
 		}
-		
+		else { l.error("MESSAGE ERROR: In affecterMissionADepartement function ");}
+
 	}
 
 	public void ajouterTimesheet(int missionId, int employeId, Date dateDebut, Date dateFin) {
+		try{
+		l.info("In ajouter Timesheet");
+		l.trace("Message TRACE: In ajouterTimesheet function");
 		TimesheetPK timesheetPK = new TimesheetPK();
 		timesheetPK.setDateDebut(dateDebut);
 		timesheetPK.setDateFin(dateFin);
@@ -67,7 +76,11 @@ public class TimesheetServiceImpl implements ITimesheetService {
 		timesheet.setTimesheetPK(timesheetPK);
 		timesheet.setValide(false);
 		timesheetRepository.save(timesheet);
-		
+		} catch (NullPointerException e) {
+			l.error("MESSAGE ERROR: In ajouterTimesheet function ");
+			l.error(e.getMessage());
+		}
+		l.trace("Message TRACE: ajouterTimesheet function ended");		
 	}
 
 	
@@ -83,6 +96,7 @@ public class TimesheetServiceImpl implements ITimesheetService {
 			employe = employeOpt.get();
 		if(!employe.getRole().equals(Role.CHEF_DEPARTEMENT)){
 			l.info("l'employe doit etre chef de departement pour valider une feuille de temps !");
+			l.error("l'employe doit etre chef de departement pour valider une feuille de temps !");
 			return;
 		}
 		boolean chefDeLaMission = false;
@@ -94,29 +108,32 @@ public class TimesheetServiceImpl implements ITimesheetService {
 		}
 		if(!chefDeLaMission){
 			l.info("l'employe doit etre chef de departement de la mission en question");
+			l.error("l'employe doit etre chef de departement de la mission en question");
 			return;
 		}
-
+		l.trace("Message TRACE: In validerTimesheet function");
 		TimesheetPK timesheetPK = new TimesheetPK(missionId, employeId, dateDebut, dateFin);
 		Timesheet timesheet =timesheetRepository.findBytimesheetPK(timesheetPK);
 		timesheet.setValide(true);
-		
+		l.trace("MESSAGE TRACE: validerTimesheet function ended");
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		String dated = dateFormat.format(timesheet.getTimesheetPK().getDateDebut());
 		if(l.isInfoEnabled() && dated != null){
 		l.info(dated);
 		}
-
+		
 	}
 
 	
 	public List<Mission> findAllMissionByEmployeJPQL(int employeId) {
+		l.trace("MESSAGE TRACE: in findAllMissionByEmployeJPQL function");
 		return timesheetRepository.findAllMissionByEmployeJPQL(employeId);
 	}
 
 	
 	public List<Employe> getAllEmployeByMission(int missionId) {
+		l.trace("MESSAGE TRACE: in getAllEmployeByMission function");
 		return timesheetRepository.getAllEmployeByMission(missionId);
 	}
 
