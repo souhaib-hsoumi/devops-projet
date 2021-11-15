@@ -24,8 +24,9 @@ import org.apache.logging.log4j.Logger;
 @SpringBootTest
 public class EntreprieTest {
 	
+
 	private static final Logger L = LogManager.getLogger(EntreprieTest.class);
-	
+
 	private static final String MSG = "entrepriseTest1";
 	@Autowired
 	IEntrepriseService entreService;
@@ -124,10 +125,6 @@ public class EntreprieTest {
 			entreService.deleteEntrepriseById(entreId);}
 		
 		
-
-
-	
-	
 	@Test
 	public void suprimerDepartementTest() {
 		Departement depTest = new Departement("production");
