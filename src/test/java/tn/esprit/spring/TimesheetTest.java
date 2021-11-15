@@ -172,7 +172,7 @@ public class TimesheetTest {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		String dated = dateFormat.format(timesheet.getTimesheetPK().getDateDebut());
 		if(l.isInfoEnabled() && dated != null){
-		l.info(" DateOfCreation: " +dated);
+		l.info(dated);
 		}}
 
 }
