@@ -78,7 +78,6 @@ public class EntreprieTest {
 		
 	}
 	
-	
 	@Test
 	public void affecterDepartementAEntrepriseTest ()
 	{
