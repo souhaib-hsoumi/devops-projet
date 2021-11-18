@@ -46,7 +46,7 @@ public class EntreprieTest {
 		Departement dep =departementRerpository.findById(idDepartement).orElse(null);
 		
 		if(idDepartement!=0 && dep!=null && dep.getName().equals(MSG)) 
-			L.info("Entreprise added successfully!");
+			L.info("Departement added successfully!");
 					entreService.deleteDepartementById(idDepartement);	
 
 	}
