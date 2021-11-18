@@ -34,6 +34,7 @@ public class TimesheetPK implements Serializable {
 		this.idEmploye = idEmploye;
 		this.dateDebut = dateDebut;
 		this.dateFin = dateFin;
+
 	}
 
 	//Pour que hibernate peut comparer deux objets (par exemple : recherche de l'objet dans le persistenceContext), 
